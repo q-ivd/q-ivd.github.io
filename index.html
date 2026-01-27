@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Can Vision-Language Models Answer Face to Face Questions in the Real-World?">
+  <meta name="keywords" content="QIVD, Vision-Language Models, Qualcomm, AI Research, VLM, MLLM, LLM, Research, Benchmark, Dataset, Situated Understanding, Real-World, Face-to-Face, Interaction, Multimodal, Situated AI, Real-Time, Interactive, Evaluation, Benchmarking, Research, Dataset, Situated Understanding, Real-World, Face-to-Face, Interaction, Multimodal, Situated AI, Real-Time, Interactive, Evaluation, Benchmarking">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QIVD</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WN20XQWWZM"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WN20XQWWZM');
+    </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./assets/css/nerfies_general.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./assets/js/fontawesome.all.min.js"></script>
+  <script src="./assets/js/bulma-carousel.min.js"></script>
+  <script src="./assets/js/bulma-slider.min.js"></script>
+  <script src="./assets/js/nerfies_index.js"></script>
+  <script src="./assets/js/nerfies_comparision.js"></script>
+
+  <!-- Import ITC Avant Garde Gothic font for QIVD page -->
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/itc-avant-garde-gothic-std-book">
+  <style>
+    .publication-title, .publication-authors, .author-block {
+      font-family: 'ITC Avant Garde Gothic Std', 'Avant Garde', sans-serif !important;
+      font-weight: 500 !important;
+    }
+    .custom-icon {
+      width: 1.5em;
+      height: 1.5em;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    h1 img {
+        width: 50px;
+        height: auto;
+        vertical-align: middle;
+    }
+    table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .section-header {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+        
+        .subsection {
+            padding-left: 24px;
+        }
+        
+    /* Rainbow border hover effect for buttons */
+    .link-block .button.is-dark {
+      position: relative;
+    }
+    
+    .link-block .button.is-dark:before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0080ff, #8000ff, #ff0080);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .link-block .button.is-dark:hover:before {
+      opacity: 1;
+    }
+    
+    /* Paper preview section styling */
+    .paper-preview-section {
+      background-color: #fafafa;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .paper-preview-section .links a {
+      transition: all 0.3s ease;
+    }
+    
+    .paper-preview-section .links a:hover {
+      color: #209cee !important;
+      transform: translateX(5px);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://rishit.tech">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://rishit.tech/airletters">
+              AirLetters
+            </a>
+            <a class="navbar-item" href="https://arxiv.org/abs/2407.08101">
+              QEVD
+            </a>
+            <a class="navbar-item" href="https://arxiv.org/abs/2411.09052">
+              ClevrSkills
+            </a>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-body" style="padding-bottom: 1.5rem;">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Can Vision-Language Models Answer Face to Face Questions in the Real-World?</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.ca/citations?user=BqNYf-oAAAAJ&hl=en">Reza Pourreza</a><sup>*1</sup>, <a href="https://rishit.tech">Rishit Dagli</a><sup>*†2</sup>, <a href="https://apratimbhattacharyya18.github.io/">Apratim Bhattacharyya</a><sup>1</sup>, <a href="https://sunnypanchal.ca/">Sunny Panchal</a><sup>1</sup>, <a href="https://scholar.google.ca/citations?user=OY4_O9UAAAAJ&hl=en">Guillaume Berger</a><sup>1</sup>, <a href="http://www.iro.umontreal.ca/~memisevr/">Roland Memisevic</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <sup>1</sup> Qualcomm AI Research <sup>‡</sup>, <sup>2</sup> University of Toronto<br>
+    <sup>*</sup> Equal Contribution. <sup>†</sup> Work completed during internship at Qualcomm AI Research.<br>
+    <sup>‡</sup> Qualcomm AI Research is an initiative of Qualcomm Technologies, Inc.
+              </span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://www.cs.toronto.edu/~rishit/projects/qivd/qivd.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="custom-icon">
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2503.19356" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <img src="./assets/img/arxiv-logomark-small.svg" class="custom-icon">
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github" style="font-size: 1.5em;"></i>
+                    </span>
+                    <span>Code (coming soon)</span>
+                  </a>
+                  </span>
+                <!-- Dataset Link. -->
+                <span class="link-block">
+                  <a href="https://www.qualcomm.com/developer/software/qualcomm-interactive-video-dataset-qivd" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-database" style="font-size: 1.5em;"></i>
+                    </span>
+                    <span>Data</span>
+                  </a>
+                </span>
+                <!-- Competition Link. -->
+                <span class="link-block">
+                  <a href="https://varworkshop.github.io/challenges/" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-trophy" style="font-size: 1.5em;"></i>
+                    </span>
+                    <span>CVPR 2025 Competition</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top: 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="content">
+        <style>
+@import url('https://fonts.cdnfonts.com/css/itc-avant-garde-gothic-std-book');
+
+body {
+  position: relative;
+  background-color: white;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #f5f5f5 !important;
+  position: relative;
+  z-index: 1;
+}
+
+.footer .container {
+  padding: 20px;
+}
+
+.qivd-page * {
+  font-family: 'ITC Avant Garde Gothic Std', 'Avant Garde', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Center all h2 headings */
+.qivd-page h2 {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Center all images */
+.qivd-page img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Author list styling */
+.author-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1.5%;
+  margin: 1.5rem auto;
+  max-width: 100%;
+}
+
+.author-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 15%;
+  min-width: 100px;
+  margin-bottom: 1rem;
+}
+
+.author-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.easter-egg {
+  margin-top: 30px;
+  cursor: pointer;
+  color: #3273dc;
+}
+
+.typing-effect {
+  overflow: hidden;
+  white-space: normal;
+  margin: 0 auto;
+  letter-spacing: .1em;
+  margin-top: 30px;
+  cursor: pointer;
+  max-width: 80%;
+  line-height: 1.5;
+}
+
+/* Carousel styling */
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 0 auto;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px; /* Fixed height for all carousel items */
+}
+
+.results-carousel video {
+  display: block;
+  height: 300px; /* Fixed height for all videos */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain; /* Maintain aspect ratio without cropping */
+}
+
+/* Carousel section background - Full width grey backgrounds */
+.hero.is-light {
+  background-color: #f5f5f5 !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.hero.is-light .hero-body {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+</style>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- TL;DR. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="notification is-light" style="background-color: #f0f8ff; border-left: 4px solid #3273dc;">
+          <p style="font-size: 1.1rem; line-height: 1.6;">
+            <strong>TL;DR:</strong> We present <span class="dnerf">QIVD</span>, a video-audio-language model for situated reasoning and a benchmark for situated AI where models must interpret real-time visual and audio inputs to answer face-to-face questions.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ TL;DR. -->
+    
+    <!-- Teaser. -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-full">
+        <img src="./assets/img/qivd/teaser_noname.png" alt="QIVD Dataset Overview" style="width: 100%; height: auto;">
+        <p class="has-text-centered is-italic" style="margin-top: 1rem; font-size: 0.95rem; color: #7a7a7a;">
+          QIVD features videos where users pose open-ended questions using their camera and microphone. Each instance includes the video with audio, transcribed question, answer, and annotated timestamp indicating when the question can be sensibly answered.
+        </p>
+      </div>
+    </div>
+    <!--/ Teaser. -->
+  </div>
+</section>
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <p class="has-text-centered" style="margin-bottom: 1.5rem; font-size: 1rem; color: #4a4a4a;">
+          <em>Our benchmark contains diverse real-world videos with audio where users ask face-to-face questions about visual scenes, requiring models to understand spatial relationships, temporal dynamics, and fine-grained visual details.</em>
+        </p>
+        <div id="qivd-results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000003.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000007.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000017.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000028.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000154.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000367.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000392.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000465.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000624.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000641.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00000801.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001000.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001171.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001202.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001221.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001286.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001433.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001534.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001622.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001735.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001788.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00001887.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00002099.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00002149.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00002303.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00002389.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00002411.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline>
+              <source src="./assets/img/qivd/videos/00002464.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Abstract Section -->
+<section class="hero is-light is-small" style="margin-top: 2rem;">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">Abstract</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+  <!-- Abstract. -->
+  <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+          <div class="content has-text-justified">
+            AI models have made significant strides in recent years in their ability to describe
+            and answer questions about real-world images. They have also made progress in
+            the ability to converse with users in real-time using audio input. This raises the
+            question: have we reached the point where AI models, connected to a camera and
+            microphone, can converse with users in real-time about scenes and events that are
+            unfolding live in front of the camera? This has been a long-standing goal in AI
+            and is a prerequisite for real-world AI assistants and humanoid robots to interact
+            with humans in everyday situations. In this work, we introduce a new dataset and
+            benchmark, the Interactive Video Dataset (QIVD), which allows us to assess the
+            extent to which existing models can support these abilities, and to what degree
+            these capabilities can be instilled through fine-tuning. The dataset is based on a
+            simple question-answering setup, where users ask questions that the system has to
+            answer, in real-time, based on the camera and audio input. We show that existing
+            models fall far behind human performance on this task, and we identify the main
+            sources for the performance gap. However, we also show that for many of the
+            required perceptual skills, fine-tuning on this form of data can significantly reduce
+            this gap.
+          </div>
+      </div>
+  </div>
+  <!--/ Abstract. -->
+</div>
+</div>
+</section>
+
+<!-- QIVD Benchmark Section -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1" id="QIVD">
+      <span style="vertical-align: middle"><span class="dnerf">QIVD</span> Benchmark</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section" style="padding-bottom: 1rem;">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+  <!-- QIVD Benchmark. -->
+
+  <div class="content has-text-justified">
+  <span class="dnerf">QIVD</span> contains <strong>2,900 videos</strong> with crowdsourced face-to-face questions. Each video includes audio, transcribed question, ground-truth answer, and optimal answer timestamp. The benchmark features 13 semantic categories including action counting, object referencing, audio-visual integration, and more.<br><br>
+
+  <video src="./assets/img/qivd/explain_liveqa.mp4" controls autoplay muted loop playsinline></video>
+
+  <p class="has-text-centered is-italic" style="margin-top: 1rem; margin-bottom: 2rem; font-size: 0.95rem; color: #7a7a7a;">
+    Example from QIVD showing the situated question-answering setup with streaming video input.
+  </p>
+
+  <h3 class="title is-5" style="margin-top: 2rem; margin-bottom: 1rem;">Dataset Statistics</h3>
+  
+  <div style="background-color: #f9f9f9; border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem;">
+      <div style="text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #3273dc;">2,900</div>
+        <div style="color: #7a7a7a; margin-top: 0.5rem;">Videos</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #3273dc;">443K</div>
+        <div style="color: #7a7a7a; margin-top: 0.5rem;">Total Frames</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #3273dc;">5.1s</div>
+        <div style="color: #7a7a7a; margin-top: 0.5rem;">Avg. Duration</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #3273dc;">13</div>
+        <div style="color: #7a7a7a; margin-top: 0.5rem;">Categories</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #3273dc;">789</div>
+        <div style="color: #7a7a7a; margin-top: 0.5rem;">Deictic Refs</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #3273dc;">81.5%</div>
+        <div style="color: #7a7a7a; margin-top: 0.5rem;">Avg. Answer Time</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title is-5" style="margin-top: 2rem; margin-bottom: 1rem;">Dataset Diversity</h3>
+  
+  The videos exhibit substantial variation in environments, participants, objects, actions, lighting conditions, and camera angles:
+  
+  <img src="./assets/img/qivd/diversity.png" alt="Dataset Diversity" style="width: 100%; max-width: 900px; margin: 2rem auto; display: block;">
+  
+  <h3 class="title is-5" style="margin-top: 3rem; margin-bottom: 1rem;">QIVD vs. Other Benchmarks</h3>
+  
+  <p>QIVD is the only benchmark featuring face-to-face interaction with manual annotation, audio, and interactive question-answering:</p>
+  
+  <div style="overflow-x: auto; margin: 2rem 0;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+      <thead>
+        <tr style="background-color: #e8f4f8;">
+          <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Benchmark</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">#Videos</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">#QA-Pairs</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Annotation</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Audio</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Subtitle</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Interactive</th>
+          <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Face-to-Face</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">AVSD (DSTC7)</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">11,156</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">~111,560</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">KnowIT VQA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">207</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">24,282</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">LifeQA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">275</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">2,326</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">How2QA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">9,035</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">44,007</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">MedVidQA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">899</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">3,010</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">Social-IQ</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">1,250</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">7,500</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">Video-MME</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">900</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">2,700</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">CodeVidQA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">2,104</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">2,104</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Automatic</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">Ego4D Social Interactions</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">667</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee; font-size: 0.75rem;">task-specific</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">TVQA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">21,793</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">152,545</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">NExT-GQA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">1,557</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">10,531</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">STAR</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">22,000</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">60,000</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Automatic</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">VStream-QA</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">32</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">3,500</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">Automatic</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">✗</td>
+        </tr>
+        <tr style="background-color: #f0f8ff;">
+          <td style="padding: 8px; border-bottom: 2px solid #3273dc; font-weight: bold;">QIVD (Ours)</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">2,900</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">2,900</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">Manual</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">✓</td>
+          <td style="padding: 8px; text-align: center; border-bottom: 2px solid #3273dc; font-weight: bold;">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="max-width: 600px; margin: 2rem auto;">
+    <img src="./assets/img/qivd/tsne_filtered_clusters.png" alt="t-SNE Comparison" style="width: 100%;">
+    <p class="has-text-centered is-italic" style="margin-top: 1rem; font-size: 0.9rem; color: #7a7a7a;">
+      t-SNE visualization: QIVD forms a distinct cluster, demonstrating substantially novel visual-semantic content compared to AVSD and Social-IQ
+    </p>
+  </div>
+  </div>
+  <!--/ QIVD Benchmark. -->
+</div>
+</div>
+</section>
+
+<!-- Difficulty of Our Benchmark Section -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">Difficulty of Our Benchmark</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+  <div class="content has-text-justified">
+  Even state-of-the-art models like GPT-4o, VideoLLaMA2-72B, and our fine-tuned VideoLLaMA2.1-7B-AV fail on simple daily face-to-face questions. <strong>Common failure modes include:</strong>
+  
+  <ul style="margin-left: 2rem; margin-top: 1rem; margin-bottom: 2rem;">
+    <li><strong>Deictic reference errors</strong> – Misinterpreting pointing gestures and spatial references</li>
+    <li><strong>Action counting failures</strong> – Inability to track and count repeated actions accurately</li>
+    <li><strong>Temporal confusion</strong> – Failing to understand when events occur in sequence</li>
+    <li><strong>Audio-visual misalignment</strong> – Difficulty integrating audio cues with visual context</li>
+  </ul>
+
+  <div style="max-width: 900px; margin: 2rem auto;">
+    <img src="./assets/img/qivd/failure.png" alt="Failure Cases" style="width: 100%;">
+    <p class="has-text-centered is-italic" style="margin-top: 1rem; font-size: 0.95rem; color: #7a7a7a;">
+      Examples of simple questions that models fail to answer correctly. These everyday scenarios remain challenging despite model sophistication.
+    </p>
+  </div>
+
+  <p style="margin-top: 2rem;">The performance gap (87.33% human vs. 60.07% best model) reveals fundamental limitations in current approaches to multi-modal integration. Models are optimized for static scene understanding rather than dynamic temporal reasoning required for real-time interaction.</p>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Our Model and Experiments Section -->
+<section class="hero is-light is-small" style="margin-top: 1rem;">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1" id="our-model-experiments">
+      <span style="vertical-align: middle">Our Model and Experiments</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+  <!-- Experiment Results. -->
+
+  <div class="content has-text-justified">
+  We introduce <strong>Stream-Qwen-Omni</strong>, our streaming model that processes audio-visual data in 1-second chunks, detecting when-to-answer with improved accuracy (52ms vs. 83ms for ASR-Streaming). During training, our model learns to:
+  
+  <ul style="margin-left: 2rem; margin-top: 1rem; margin-bottom: 1rem;">
+    <li>Process streaming inputs in real-time</li>
+    <li>Detect when a question has been asked</li>
+    <li>Determine when sufficient context is available to answer</li>
+    <li>Generate accurate responses at the optimal moment</li>
+  </ul>
+    
+  We evaluate in two setups: <strong>(1) Streaming</strong>—models transcribe questions from audio and determine when to answer, and <strong>(2) Offline</strong>—ground-truth questions and timestamps provided. Additionally, we fine-tune VideoLLaMA2.1-7B-AV on QIVD using our Stream-Qwen-Omni approach, demonstrating significant improvements across categories.<br><br>
+
+  <h3 class="title is-5" style="margin-top: 2rem; margin-bottom: 1.5rem;">Performance Across Categories</h3>
+  
+  <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin: 2rem 0;">
+    <div style="flex: 1; max-width: 500px;">
+      <img src="./assets/img/qivd/radar_all_with_human_correctness_corrected.png" alt="Category Performance" style="width: 100%;">
+      <p class="has-text-centered is-italic" style="margin-top: 0.5rem; font-size: 0.9rem; color: #7a7a7a;">
+        Models struggle with action counting, audio-visual integration, and object referencing
+      </p>
+    </div>
+    <div style="flex: 1; max-width: 500px;">
+      <img src="./assets/img/qivd/appendix_static_vs_temporal.png" alt="Static vs Temporal" style="width: 100%;">
+      <p class="has-text-centered is-italic" style="margin-top: 0.5rem; font-size: 0.9rem; color: #7a7a7a;">
+        All models show >19% performance drop on temporal tasks vs. static tasks
+      </p>
+    </div>
+  </div>
+
+  <h3 class="title is-5" style="margin-top: 3rem; margin-bottom: 1.5rem;">Impact of Audio and When-to-Answer</h3>
+  
+  <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin: 2rem 0;">
+    <div style="flex: 1; max-width: 500px;">
+      <img src="./assets/img/qivd/bar_withaudio_correctness.png" alt="Audio Impact" style="width: 100%;">
+      <p class="has-text-centered is-italic" style="margin-top: 0.5rem; font-size: 0.9rem; color: #7a7a7a;">
+        Our fine-tuned VideoLLaMA2.1-7B-AV shows dramatic gains when using audio+video
+      </p>
+    </div>
+    <div style="flex: 1; max-width: 500px;">
+      <img src="./assets/img/qivd/bar_qwen_correctness.png" alt="When-to-Answer Impact" style="width: 100%;">
+      <p class="has-text-centered is-italic" style="margin-top: 0.5rem; font-size: 0.9rem; color: #7a7a7a;">
+        Our Stream-Qwen-Omni: Accurate when-to-answer timing substantially improves performance
+      </p>
+    </div>
+  </div>
+
+  <p style="margin-top: 2rem;"><strong>Key Findings:</strong></p>
+  <ul style="margin-left: 2rem; margin-top: 1rem;">
+    <li>Our Stream-Qwen-Omni approach with fine-tuning produces largest gains in action counting (+16.96%), action understanding (+10.00%), and audio-visual tasks (+17.39%)</li>
+    <li>End-to-end multimodal training with our approach enables emergent capabilities beyond simple feature concatenation</li>
+    <li>Our Stream-Qwen-Omni's accurate when-to-answer detection is critical—models answering prematurely perform poorly</li>
+  </ul>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Leaderboard Section -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1" id="leaderboard">
+      <span style="vertical-align: middle">Leaderboard</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+
+  <p style="text-align: center; color: #7a7a7a; margin-bottom: 1rem;">
+    Comprehensive evaluation of state-of-the-art vision-language models on QIVD. Click column headers to sort.
+  </p>
+
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <button id="toggle-std-btn" onclick="toggleStdDev()" class="button is-small is-info" style="margin-top: 0.5rem;">
+      <span class="icon">
+        <i class="fas fa-chart-bar"></i>
+      </span>
+      <span>Show Std. Dev.</span>
+    </button>
+  </div>
+
+  <h4 class="title is-5" style="margin-top: 1.5rem; margin-bottom: 1rem;">Streaming Setup</h4>
+
+  <div class="table-container">
+    <table id="leaderboard-table" class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+        <tr class="has-background-info-light">
+          <th onclick="sortTable(0)">Model <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortTable(1)">Corr. ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortTable(2)">BERT ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortTable(3)">METEOR ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortTable(4)">BLEU ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortTable(5)">ROUGE-L ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Chat-UniVi</td>
+          <td>34.66 <span class="std-dev">(±47.60)</span></td>
+          <td>89.94 <span class="std-dev">(±3.56)</span></td>
+          <td>37.47 <span class="std-dev">(±23.53)</span></td>
+          <td>6.08 <span class="std-dev">(±16.44)</span></td>
+          <td>28.45 <span class="std-dev">(±22.41)</span></td>
+        </tr>
+        <tr>
+          <td>InstructBLIP</td>
+          <td>35.03 <span class="std-dev">(±47.72)</span></td>
+          <td>82.19 <span class="std-dev">(±3.00)</span></td>
+          <td>4.35 <span class="std-dev">(±6.53)</span></td>
+          <td>0.02 <span class="std-dev">(±0.73)</span></td>
+          <td>9.99 <span class="std-dev">(±14.40)</span></td>
+        </tr>
+        <tr>
+          <td>LLaMA-VID</td>
+          <td>39.41 <span class="std-dev">(±48.87)</span></td>
+          <td>90.51 <span class="std-dev">(±3.56)</span></td>
+          <td>37.18 <span class="std-dev">(±23.25)</span></td>
+          <td>5.84 <span class="std-dev">(±16.39)</span></td>
+          <td>29.80 <span class="std-dev">(±22.03)</span></td>
+        </tr>
+        <tr>
+          <td>LLaVA-NeXT</td>
+          <td>19.45 <span class="std-dev">(±39.59)</span></td>
+          <td>85.29 <span class="std-dev">(±3.24)</span></td>
+          <td>22.85 <span class="std-dev">(±15.72)</span></td>
+          <td>1.38 <span class="std-dev">(±8.68)</span></td>
+          <td>11.64 <span class="std-dev">(±15.21)</span></td>
+        </tr>
+        <tr>
+          <td>Video-ChatGPT</td>
+          <td>32.45 <span class="std-dev">(±46.83)</span></td>
+          <td>90.53 <span class="std-dev">(±3.78)</span></td>
+          <td>38.14 <span class="std-dev">(±24.78)</span></td>
+          <td>7.58 <span class="std-dev">(±19.46)</span></td>
+          <td>31.09 <span class="std-dev">(±24.45)</span></td>
+        </tr>
+        <tr>
+          <td>VideoChat</td>
+          <td>3.69 <span class="std-dev">(±18.85)</span></td>
+          <td>85.05 <span class="std-dev">(±2.77)</span></td>
+          <td>23.48 <span class="std-dev">(±15.29)</span></td>
+          <td>1.08 <span class="std-dev">(±6.47)</span></td>
+          <td>12.22 <span class="std-dev">(±12.29)</span></td>
+        </tr>
+        <tr>
+          <td>VideoChat2</td>
+          <td>44.66 <span class="std-dev">(±49.72)</span></td>
+          <td><u>91.13 <span class="std-dev">(±3.88)</span></u></td>
+          <td><u>45.49 <span class="std-dev">(±26.63)</span></u></td>
+          <td>11.35 <span class="std-dev">(±23.38)</span></td>
+          <td><u>41.38 <span class="std-dev">(±26.04)</span></u></td>
+        </tr>
+        <tr>
+          <td>Video-LLaVA</td>
+          <td>20.28 <span class="std-dev">(±40.21)</span></td>
+          <td>87.77 <span class="std-dev">(±3.37)</span></td>
+          <td>27.15 <span class="std-dev">(±18.88)</span></td>
+          <td>1.98 <span class="std-dev">(±9.73)</span></td>
+          <td>19.31 <span class="std-dev">(±17.63)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA</td>
+          <td>30.76 <span class="std-dev">(±46.16)</span></td>
+          <td>89.50 <span class="std-dev">(±4.56)</span></td>
+          <td>39.05 <span class="std-dev">(±26.06)</span></td>
+          <td>7.62 <span class="std-dev">(±18.87)</span></td>
+          <td>30.84 <span class="std-dev">(±24.83)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA2-7B</td>
+          <td>43.34 <span class="std-dev">(±49.56)</span></td>
+          <td>91.18 <span class="std-dev">(±4.18)</span></td>
+          <td><b>47.20 <span class="std-dev">(±27.92)</span></b></td>
+          <td><u>13.93 <span class="std-dev">(±26.57)</span></u></td>
+          <td>40.63 <span class="std-dev">(±27.22)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA2-72B</td>
+          <td>46.52 <span class="std-dev">(±49.89)</span></td>
+          <td><b>91.42 <span class="std-dev">(±5.68)</span></b></td>
+          <td>46.60 <span class="std-dev">(±28.88)</span></td>
+          <td><b>14.04 <span class="std-dev">(±27.41)</span></b></td>
+          <td><b>41.71 <span class="std-dev">(±28.50)</span></b></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA3-7B</td>
+          <td><u>50.59 <span class="std-dev">(±50.01)</span></u></td>
+          <td>90.92 <span class="std-dev">(±5.34)</span></td>
+          <td>45.20 <span class="std-dev">(±27.14)</span></td>
+          <td>11.21 <span class="std-dev">(±23.54)</span></td>
+          <td>40.55 <span class="std-dev">(±26.55)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLM-online</td>
+          <td>17.97 <span class="std-dev">(±38.40)</span></td>
+          <td>76.60 <span class="std-dev">(±29.79)</span></td>
+          <td>27.36 <span class="std-dev">(±22.11)</span></td>
+          <td>2.81 <span class="std-dev">(±10.28)</span></td>
+          <td>20.39 <span class="std-dev">(±19.30)</span></td>
+        </tr>
+        <tr>
+          <td>Flash-VStream</td>
+          <td>44.28 <span class="std-dev">(±49.68)</span></td>
+          <td>89.85 <span class="std-dev">(±3.73)</span></td>
+          <td>28.95 <span class="std-dev">(±24.21)</span></td>
+          <td>4.17 <span class="std-dev">(±15.38)</span></td>
+          <td>27.05 <span class="std-dev">(±24.56)</span></td>
+        </tr>
+        <tr>
+          <td>Qwen2.5-VL-7B</td>
+          <td>44.90 <span class="std-dev">(±49.75)</span></td>
+          <td>87.17 <span class="std-dev">(±2.71)</span></td>
+          <td>34.95 <span class="std-dev">(±20.21)</span></td>
+          <td>3.89 <span class="std-dev">(±10.62)</span></td>
+          <td>26.52 <span class="std-dev">(±23.25)</span></td>
+        </tr>
+        <tr>
+          <td>Qwen2.5-Omni-7B</td>
+          <td>43.97 <span class="std-dev">(±49.64)</span></td>
+          <td>86.65 <span class="std-dev">(±1.95)</span></td>
+          <td>33.45 <span class="std-dev">(±17.12)</span></td>
+          <td>2.77 <span class="std-dev">(±5.94)</span></td>
+          <td>20.57 <span class="std-dev">(±12.71)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Qwen3-VL-8B</strong></td>
+          <td><strong>53.72 <span class="std-dev">(±49.87)</span></strong></td>
+          <td>87.08 <span class="std-dev">(±3.08)</span></td>
+          <td>33.90 <span class="std-dev">(±22.11)</span></td>
+          <td>5.29 <span class="std-dev">(±12.70)</span></td>
+          <td>31.53 <span class="std-dev">(±27.10)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="has-text-centered mt-2">Overall results of different models on the <span class="dnerf">QIVD</span> leaderboard. The <b style="color: #209cee;">best-performing model</b> in each category is in-bold, and the <u style="color: #3273dc;">second best</u> is underlined. Corr. represents the correctness score calculated by the LLM judge.</p>
+
+  <script>
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("leaderboard-table");
+    switching = true;
+    dir = "asc";
+    
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        
+        if (dir == "asc") {
+          if (n == 0) {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else {
+            if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        } else if (dir == "desc") {
+          if (n == 0) {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else {
+            if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+      }
+      
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount++;
+      } else {
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+    
+    var icons = table.querySelectorAll("thead th span.icon");
+    for (i = 0; i < icons.length; i++) {
+      icons[i].innerHTML = '<i class="fas fa-sort"></i>';
+    }
+    
+    var icon = rows[0].getElementsByTagName("TH")[n].querySelector("span.icon");
+    if (dir == "desc") {
+      icon.innerHTML = '<i class="fas fa-sort-down"></i>';
+    } else {
+      icon.innerHTML = '<i class="fas fa-sort-up"></i>';
+    }
+  }
+
+  var stdDevVisible = false;
+  function toggleStdDev() {
+    stdDevVisible = !stdDevVisible;
+    const btn = document.getElementById('toggle-std-btn');
+    const stdCells = document.querySelectorAll('.std-dev');
+    
+    if (stdDevVisible) {
+      stdCells.forEach(cell => cell.style.display = 'inline');
+      btn.querySelector('span:last-child').textContent = 'Hide Std. Dev.';
+    } else {
+      stdCells.forEach(cell => cell.style.display = 'none');
+      btn.querySelector('span:last-child').textContent = 'Show Std. Dev.';
+    }
+  }
+  </script>
+
+  <style>
+    .std-dev {
+      display: none;
+      font-size: 0.75em;
+      color: #7a7a7a;
+      font-weight: normal;
+    }
+    
+    #leaderboard-table th, #offline-leaderboard-table th {
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    #leaderboard-table th:hover, #offline-leaderboard-table th:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    #leaderboard-table b, #offline-leaderboard-table b {
+      font-weight: bold;
+      color: #209cee;
+    }
+    
+    #leaderboard-table u, #offline-leaderboard-table u {
+      text-decoration: underline;
+      color: #3273dc;
+    }
+    
+    .table-container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .table {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .table th, .table td {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+  <h4 class="title is-5" style="margin-top: 1.5rem; margin-bottom: 1rem;">Offline Setup</h4>
+  
+  <div class="table-container">
+    <table id="offline-leaderboard-table" class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+        <tr class="has-background-info-light">
+          <th onclick="sortOfflineTable(0)">Model <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortOfflineTable(1)">Corr. ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortOfflineTable(2)">BERT ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortOfflineTable(3)">METEOR ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortOfflineTable(4)">BLEU ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="sortOfflineTable(5)">ROUGE-L ↑ <span class="icon"><i class="fas fa-sort"></i></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Chat-UniVi</td>
+          <td>40.79 <span class="std-dev">(±49.15)</span></td>
+          <td>90.50 <span class="std-dev">(±3.49)</span></td>
+          <td>40.02 <span class="std-dev">(±23.64)</span></td>
+          <td>7.24 <span class="std-dev">(±18.29)</span></td>
+          <td>31.22 <span class="std-dev">(±22.70)</span></td>
+        </tr>
+        <tr>
+          <td>InstructBLIP</td>
+          <td>39.14 <span class="std-dev">(±48.81)</span></td>
+          <td>82.03 <span class="std-dev">(±3.13)</span></td>
+          <td>4.54 <span class="std-dev">(±6.81)</span></td>
+          <td>0.07 <span class="std-dev">(±1.70)</span></td>
+          <td>10.72 <span class="std-dev">(±14.56)</span></td>
+        </tr>
+        <tr>
+          <td>LLaMA-VID</td>
+          <td>43.00 <span class="std-dev">(±49.52)</span></td>
+          <td>90.78 <span class="std-dev">(±3.32)</span></td>
+          <td>37.55 <span class="std-dev">(±22.42)</span></td>
+          <td>5.42 <span class="std-dev">(±15.59)</span></td>
+          <td>29.82 <span class="std-dev">(±21.12)</span></td>
+        </tr>
+        <tr>
+          <td>LLaVA-NeXT</td>
+          <td>22.66 <span class="std-dev">(±41.87)</span></td>
+          <td>85.78 <span class="std-dev">(±3.40)</span></td>
+          <td>24.50 <span class="std-dev">(±16.66)</span></td>
+          <td>1.67 <span class="std-dev">(±9.53)</span></td>
+          <td>13.22 <span class="std-dev">(±16.54)</span></td>
+        </tr>
+        <tr>
+          <td>Video-ChatGPT</td>
+          <td>36.59 <span class="std-dev">(±48.18)</span></td>
+          <td>91.01 <span class="std-dev">(±3.78)</span></td>
+          <td>40.59 <span class="std-dev">(±25.20)</span></td>
+          <td>9.07 <span class="std-dev">(±21.51)</span></td>
+          <td>33.58 <span class="std-dev">(±25.11)</span></td>
+        </tr>
+        <tr>
+          <td>VideoChat</td>
+          <td>3.52 <span class="std-dev">(±18.42)</span></td>
+          <td>85.20 <span class="std-dev">(±2.72)</span></td>
+          <td>24.39 <span class="std-dev">(±15.51)</span></td>
+          <td>1.03 <span class="std-dev">(±5.52)</span></td>
+          <td>12.54 <span class="std-dev">(±12.11)</span></td>
+        </tr>
+        <tr>
+          <td>VideoChat2</td>
+          <td>50.34 <span class="std-dev">(±50.01)</span></td>
+          <td>91.52 <span class="std-dev">(±3.81)</span></td>
+          <td>47.93 <span class="std-dev">(±26.62)</span></td>
+          <td>12.43 <span class="std-dev">(±24.04)</span></td>
+          <td><u>43.87 <span class="std-dev">(±25.97)</span></u></td>
+        </tr>
+        <tr>
+          <td>Video-LLaVA</td>
+          <td>15.00 <span class="std-dev">(±35.71)</span></td>
+          <td>83.38 <span class="std-dev">(±1.85)</span></td>
+          <td>2.90 <span class="std-dev">(±5.27)</span></td>
+          <td>0.00 <span class="std-dev">(±0.00)</span></td>
+          <td>15.66 <span class="std-dev">(±16.00)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA</td>
+          <td>35.93 <span class="std-dev">(±47.99)</span></td>
+          <td>90.45 <span class="std-dev">(±4.15)</span></td>
+          <td>43.88 <span class="std-dev">(±25.81)</span></td>
+          <td>9.86 <span class="std-dev">(±21.99)</span></td>
+          <td>34.93 <span class="std-dev">(±25.09)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA2-7B</td>
+          <td>50.07 <span class="std-dev">(±50.01)</span></td>
+          <td><u>91.71 <span class="std-dev">(±4.15)</span></u></td>
+          <td><u>51.08 <span class="std-dev">(±27.91)</span></u></td>
+          <td><b>16.41 <span class="std-dev">(±28.98)</span></b></td>
+          <td>43.97 <span class="std-dev">(±27.56)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA2-72B</td>
+          <td>50.83 <span class="std-dev">(±50.00)</span></td>
+          <td><b>92.29 <span class="std-dev">(±4.35)</span></b></td>
+          <td><b>51.13 <span class="std-dev">(±27.95)</span></b></td>
+          <td><u>16.12 <span class="std-dev">(±28.86)</span></u></td>
+          <td><b>45.76 <span class="std-dev">(±28.06)</span></b></td>
+        </tr>
+        <tr>
+          <td>VideoLLaMA3-7B</td>
+          <td>56.38 <span class="std-dev">(±49.60)</span></td>
+          <td>91.63 <span class="std-dev">(±4.24)</span></td>
+          <td>48.56 <span class="std-dev">(±26.81)</span></td>
+          <td>12.72 <span class="std-dev">(±24.92)</span></td>
+          <td>43.84 <span class="std-dev">(±26.11)</span></td>
+        </tr>
+        <tr>
+          <td>VideoLLM-online</td>
+          <td>23.62 <span class="std-dev">(±42.48)</span></td>
+          <td>88.45 <span class="std-dev">(±3.55)</span></td>
+          <td>33.08 <span class="std-dev">(±21.42)</span></td>
+          <td>3.99 <span class="std-dev">(±12.35)</span></td>
+          <td>25.26 <span class="std-dev">(±19.97)</span></td>
+        </tr>
+        <tr>
+          <td>Flash-VStream</td>
+          <td>49.59 <span class="std-dev">(±50.01)</span></td>
+          <td>90.48 <span class="std-dev">(±3.57)</span></td>
+          <td>31.49 <span class="std-dev">(±24.88)</span></td>
+          <td>5.05 <span class="std-dev">(±17.12)</span></td>
+          <td>29.90 <span class="std-dev">(±24.98)</span></td>
+        </tr>
+        <tr>
+          <td>Qwen2.5-VL-7B</td>
+          <td>50.62 <span class="std-dev">(±50.00)</span></td>
+          <td>87.58 <span class="std-dev">(±2.63)</span></td>
+          <td>37.37 <span class="std-dev">(±20.46)</span></td>
+          <td>4.66 <span class="std-dev">(±11.67)</span></td>
+          <td>29.44 <span class="std-dev">(±24.18)</span></td>
+        </tr>
+        <tr>
+          <td>Qwen2.5-Omni-7B</td>
+          <td>45.90 <span class="std-dev">(±49.84)</span></td>
+          <td>86.73 <span class="std-dev">(±1.93)</span></td>
+          <td>33.98 <span class="std-dev">(±17.22)</span></td>
+          <td>2.87 <span class="std-dev">(±5.96)</span></td>
+          <td>20.98 <span class="std-dev">(±12.71)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Qwen3-VL-8B</strong></td>
+          <td><strong><u>60.07 <span class="std-dev">(±48.98)</span></u></strong></td>
+          <td>87.58 <span class="std-dev">(±3.00)</span></td>
+          <td>36.72 <span class="std-dev">(±22.77)</span></td>
+          <td>6.64 <span class="std-dev">(±14.11)</span></td>
+          <td>35.89 <span class="std-dev">(±28.07)</span></td>
+        </tr>
+        <tr>
+          <td>Gemini-2.5-Flash</td>
+          <td>58.07 <span class="std-dev">(±49.35)</span></td>
+          <td>90.43 <span class="std-dev">(±4.12)</span></td>
+          <td>43.07 <span class="std-dev">(±25.20)</span></td>
+          <td>8.33 <span class="std-dev">(±20.68)</span></td>
+          <td>36.05 <span class="std-dev">(±26.01)</span></td>
+        </tr>
+        <tr>
+          <td>GPT-4o</td>
+          <td><b>58.76 <span class="std-dev">(±49.24)</span></b></td>
+          <td>89.36 <span class="std-dev">(±15.25)</span></td>
+          <td><b>51.18 <span class="std-dev">(±27.32)</span></b></td>
+          <td><u>15.72 <span class="std-dev">(±28.27)</span></u></td>
+          <td>42.55 <span class="std-dev">(±28.17)</span></td>
+        </tr>
+        <tr class="has-background-info-light">
+          <td>Human (subset)</td>
+          <td>87.33 <span class="std-dev">(±33.32)</span></td>
+          <td><b>93.01 <span class="std-dev">(±3.89)</span></b></td>
+          <td><u>53.21 <span class="std-dev">(±25.22)</span></u></td>
+          <td><b>17.40 <span class="std-dev">(±30.90)</span></b></td>
+          <td><b>49.76 <span class="std-dev">(±25.18)</span></b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="has-text-centered mt-2">Overall results of different models on the <span class="dnerf">QIVD</span> leaderboard. The <b style="color: #209cee;">best-performing model</b> in each category is in-bold, and the <u style="color: #3273dc;">second best</u> is underlined. Corr. represents the correctness score calculated by the LLM judge.</p>
+
+  <script>
+  function sortOfflineTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("offline-leaderboard-table");
+    switching = true;
+    dir = "asc";
+    
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        
+        if (dir == "asc") {
+          if (n == 0) {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else {
+            if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        } else if (dir == "desc") {
+          if (n == 0) {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else {
+            if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+      }
+      
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount++;
+      } else {
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+    
+    var icons = table.querySelectorAll("thead th span.icon");
+    for (i = 0; i < icons.length; i++) {
+      icons[i].innerHTML = '<i class="fas fa-sort"></i>';
+    }
+    
+    var icon = rows[0].getElementsByTagName("TH")[n].querySelector("span.icon");
+    if (dir == "desc") {
+      icon.innerHTML = '<i class="fas fa-sort-down"></i>';
+    } else {
+      icon.innerHTML = '<i class="fas fa-sort-up"></i>';
+    }
+  }
+  </script>
+
+</div>
+</div>
+</section>
+
+
+<!-- Paper Preview Section -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">Paper</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <div class="paper-preview-section" style="background-color: #fafafa; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+          <div class="columns is-vcentered">
+            <div class="column is-5" style="padding-right: 2.5rem;">
+              <img src="./assets/img/qivd/paper_preview.png" alt="Paper thumbnail" class="image" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%;">
+            </div>
+            <div class="column is-7" style="padding-left: 3rem;">
+              <h2 class="title is-5 mb-2">Can Vision-Language Models Answer Face to Face Questions in the Real-World?</h2>
+              
+              <div class="content has-text-justified" style="font-size: 0.95rem;">
+                <p class="author-list mb-1" style="color: #4a4a4a;">
+                  <strong>Reza Pourreza</strong>, 
+                  <strong>Rishit Dagli</strong>, 
+                  <strong>Apratim Bhattacharyya</strong>, 
+                  <strong>Sunny Panchal</strong>, 
+                  <strong>Guillaume Berger</strong>, 
+                  <strong>Roland Memisevic</strong>
+                </p>
+                <p class="mb-3" style="color: #7a7a7a;"><em>Qualcomm AI Research, University of Toronto</em></p>
+                
+                <div class="links" style="font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+                  <a href="https://www.cs.toronto.edu/~rishit/projects/qivd/qivd.pdf" target="_blank" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                    <i class="fas fa-file-pdf" style="margin-right: 0.5rem;"></i>
+                    Paper (PDF)
+                  </a>
+                  
+                  <a href="https://arxiv.org/abs/2503.19356" target="_blank" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                    <i class="ai ai-arxiv" style="margin-right: 0.5rem;"></i>
+                    arXiv version
+                  </a>
+                  
+                  <a href="#BibTeX" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                    <i class="fas fa-quote-right" style="margin-right: 0.5rem;"></i>
+                    BibTeX
+                  </a>
+                  
+                  <a href="#" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                    <i class="fab fa-github" style="margin-right: 0.5rem;"></i>
+                    Code (coming soon)
+                  </a>
+                  
+                  <a href="#" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                    <i class="fas fa-database" style="margin-right: 0.5rem;"></i>
+                    Data (coming soon)
+                  </a>
+                  
+                  <a href="https://varworkshop.github.io/challenges/" target="_blank" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                    <i class="fas fa-trophy" style="margin-right: 0.5rem;"></i>
+                    CVPR 2025 Competition
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX Section -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">BibTeX</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section" id="BibTeX" style="padding-bottom: 1rem;">
+  <div class="container is-max-desktop content">
+    <div style="position: relative;">
+      <pre style="background-color: #f5f5f5; border-radius: 8px; padding: 1.5rem; overflow-x: auto; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);"><code id="citationCode">@misc{pourreza2025visionlanguagemodelsanswerface,
+      title={Can Vision-Language Models Answer Face to Face Questions in the Real-World?}, 
+      author={Reza Pourreza and Rishit Dagli and Apratim Bhattacharyya and Sunny Panchal and Guillaume Berger and Roland Memisevic},
+      year={2025},
+      eprint={2503.19356},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2503.19356}, 
+}</code></pre>
+      <button class="button is-small is-primary" onclick="copyCitation()" style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #3273dc 0%, #209cee 100%); border: none;">
+        <span class="icon">
+          <i class="fas fa-copy"></i>
+        </span>
+        <span>Copy</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Easter Egg -->
+<section class="section" style="padding-top: 0.25rem; padding-bottom: 2rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <div id="easter-egg" class="easter-egg" onclick="toggleEasterEgg()">Easter Egg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function copyCitation() {
+    var citationCode = document.getElementById("citationCode").innerText;
+    navigator.clipboard.writeText(citationCode);
+  }
+  
+  var eggRevealed = false;
+  var typing = false;
+  var message = "this project was released on march 26, 2025 when the internet was taken over with ghibli style images and thus this ghibli-style page.";
+  
+  function toggleEasterEgg() {
+    var easterEggElement = document.getElementById("easter-egg");
+    
+    if (eggRevealed) {
+      easterEggElement.classList.remove("typing-effect");
+      easterEggElement.classList.add("easter-egg");
+      easterEggElement.innerHTML = "Easter Egg";
+      eggRevealed = false;
+    } else {
+      easterEggElement.classList.remove("easter-egg");
+      easterEggElement.classList.add("typing-effect");
+      easterEggElement.innerHTML = "";
+      
+      var i = 0;
+      var speed = 25;
+      typing = true;
+      
+      function typeWriter() {
+        if (i < message.length) {
+          easterEggElement.innerHTML += message.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        } else {
+          typing = false;
+          eggRevealed = true;
+        }
+      }
+      
+      typeWriter();
+    }
+  }
+</script>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/Rishit-dagli" class="external-link">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>.
+            </p>
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
