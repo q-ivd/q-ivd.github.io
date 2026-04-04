@@ -35,13 +35,7 @@
   <script src="./assets/js/nerfies_index.js"></script>
   <script src="./assets/js/nerfies_comparision.js"></script>
 
-  <!-- Import ITC Avant Garde Gothic font for QIVD page -->
-  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/itc-avant-garde-gothic-std-book">
   <style>
-    .publication-title, .publication-authors, .author-block {
-      font-family: 'ITC Avant Garde Gothic Std', 'Avant Garde', sans-serif !important;
-      font-weight: 500 !important;
-    }
     .custom-icon {
       width: 1.5em;
       height: 1.5em;
@@ -87,29 +81,6 @@
             padding-left: 24px;
         }
         
-    /* Rainbow border hover effect for buttons */
-    .link-block .button.is-dark {
-      position: relative;
-    }
-    
-    .link-block .button.is-dark:before {
-      content: '';
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
-      border-radius: 25px;
-      background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0080ff, #8000ff, #ff0080);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .link-block .button.is-dark:hover:before {
-      opacity: 1;
-    }
-    
     /* Paper preview section styling */
     .paper-preview-section {
       background-color: #fafafa;
@@ -165,7 +136,7 @@
     </div>
   </nav>
   <section class="hero">
-    <div class="hero-body" style="padding-bottom: 1.5rem;">
+    <div class="hero-body" style="padding-bottom: 0 !important;">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
@@ -181,11 +152,11 @@
                 <sup>1</sup> Qualcomm AI Research <sup>‡</sup>, <sup>2</sup> University of Toronto<br>
     <sup>*</sup> Equal Contribution. <sup>†</sup> Work completed during internship at Qualcomm AI Research.<br>
     <sup>‡</sup> Qualcomm AI Research is an initiative of Qualcomm Technologies, Inc.<br>
-    <strong> ICLR 2026</strong>
+    <span style="color: #3273dc;">ICLR 2026</span>
               </span>
             </div>
 
-            <div class="column has-text-centered">
+            <div class="column has-text-centered" style="padding-bottom: 0;">
               <div class="publication-links">
                 <!-- PDF Link. -->
                 <span class="link-block">
@@ -208,13 +179,13 @@
 
                 <!-- Code Link. -->
                 <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark" disabled style="pointer-events: none; opacity: 0.5;">
                     <span class="icon">
                       <i class="fab fa-github" style="font-size: 1.5em;"></i>
                     </span>
-                    <span>Code (coming soon)</span>
+                    <span>Code</span>
                   </a>
-                  </span>
+                </span>
                 <!-- Dataset Link. -->
                 <span class="link-block">
                   <a href="https://www.qualcomm.com/developer/software/qualcomm-interactive-video-dataset-qivd" class="external-link button is-normal is-rounded is-dark">
@@ -240,15 +211,14 @@
       </div>
     </div>
   </section>
-  <section class="section" style="padding-top: 1.5rem;">
+  <section class="section" style="padding-top: 0 !important;">
     <div class="container is-max-desktop">
       <div class="content">
         <style>
-@import url('https://fonts.cdnfonts.com/css/itc-avant-garde-gothic-std-book');
-
 body {
   position: relative;
   background-color: white;
+  font-family: 'Noto Sans', sans-serif !important;
 }
 
 /* Footer styling */
@@ -263,7 +233,7 @@ body {
 }
 
 .qivd-page * {
-  font-family: 'ITC Avant Garde Gothic Std', 'Avant Garde', sans-serif !important;
+  font-family: 'Noto Sans', sans-serif !important;
   font-weight: 500 !important;
 }
 
@@ -314,22 +284,6 @@ body {
   border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-.easter-egg {
-  margin-top: 30px;
-  cursor: pointer;
-  color: #3273dc;
-}
-
-.typing-effect {
-  overflow: hidden;
-  white-space: normal;
-  margin: 0 auto;
-  letter-spacing: .1em;
-  margin-top: 30px;
-  cursor: pointer;
-  max-width: 80%;
-  line-height: 1.5;
-}
 
 /* Carousel styling */
 .results-carousel {
@@ -371,43 +325,139 @@ body {
   width: 100% !important;
   max-width: 100% !important;
 }
+
+.hero-video-block {
+  width: 100%;
+  margin-top: 0;
+}
+
+.hero-video-block .image {
+  margin: 0 !important;
+}
+
+.hero-video-block iframe {
+  display: block;
+}
+
+.hero-video-block .column {
+  padding-bottom: 0 !important;
+}
+
+.hero-tldr-bar {
+  margin: 0 !important;
+  width: 100%;
+  background-color: #f0f8ff;
+  color: #1f2d3d;
+  border-radius: 0;
+  border-left: 4px solid #3273dc;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.hero-tldr-bar p {
+  margin: 0 !important;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
 </style>
-<section class="section">
+<section class="section" style="padding-bottom: 0;">
   <div class="container is-max-desktop">
-    <!-- TL;DR. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <div class="notification is-light" style="background-color: #f0f8ff; border-left: 4px solid #3273dc;">
-          <p style="font-size: 1.1rem; line-height: 1.6;">
+    <!-- Hero Video + TL;DR. -->
+    <div class="columns is-centered has-text-centered hero-video-block">
+      <div class="column is-full" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
+        <figure class="image is-16by9" style="width: 100%; margin-bottom: 0 !important;">
+          <iframe class="has-ratio" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/AvEGzvxxk2E?si=PtyeqvdX9DxxDJEf" style="display: block;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </figure>
+        <div class="notification hero-tldr-bar" style="margin-top: 0 !important;">
+          <p>
             <strong>TL;DR:</strong> We present <span class="dnerf">QIVD</span>, a video-audio-language model for situated reasoning and a benchmark for situated AI where models must interpret real-time visual and audio inputs to answer face-to-face questions.
           </p>
         </div>
       </div>
     </div>
-    <!--/ TL;DR. -->
-    
-    <!-- Teaser. -->
-    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
-      <div class="column is-full">
-        <img src="./assets/img/qivd/teaser_noname.png" alt="QIVD Dataset Overview" style="width: 100%; height: auto;">
-        <p class="has-text-centered is-italic" style="margin-top: 1rem; font-size: 0.95rem; color: #7a7a7a;">
-          QIVD features videos where users pose open-ended questions using their camera and microphone. Each instance includes the video with audio, transcribed question, answer, and annotated timestamp indicating when the question can be sensibly answered.
-        </p>
-        <figure class="image is-16by9" style="margin-top: 1rem; width: 100%;">
-          <iframe class="has-ratio" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/AvEGzvxxk2E?si=PtyeqvdX9DxxDJEf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </figure>
-      </div>
-    </div>
-    <!--/ Teaser. -->
+    <!--/ Hero Video + TL;DR. -->
   </div>
 </section>
-  <section class="hero is-light is-small">
-    <div class="hero-body">
-      <div class="container">
-        <p class="has-text-centered" style="margin-bottom: 1.5rem; font-size: 1rem; color: #4a4a4a;">
-          <em>Our benchmark contains diverse real-world videos with audio where users ask face-to-face questions about visual scenes, requiring models to understand spatial relationships, temporal dynamics, and fine-grained visual details.</em>
-        </p>
-        <div id="qivd-results-carousel" class="carousel results-carousel">
+  
+
+<!-- Abstract Section -->
+<section class="hero is-light is-small" style="margin-top: 2rem;">
+  <div class="hero-body has-text-centered" style="padding-bottom: 0.5rem;">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">Abstract</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem;">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+  <!-- Abstract. -->
+  <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+          <img src="./assets/img/qivd/teaser_noname.png" alt="Teaser" style="width: 100%; border-radius: 10px; margin-bottom: 2rem;">
+          <div class="content has-text-justified">
+            AI models have made significant strides in recent years in their ability to describe
+            and answer questions about real-world images. They have also made progress in
+            the ability to converse with users in real-time using audio input. This raises the
+            question: have we reached the point where AI models, connected to a camera and
+            microphone, can converse with users in real-time about scenes and events that are
+            unfolding live in front of the camera? This has been a long-standing goal in AI
+            and is a prerequisite for real-world AI assistants and humanoid robots to interact
+            with humans in everyday situations. In this work, we introduce a new dataset and
+            benchmark, the Interactive Video Dataset (QIVD), which allows us to assess the
+            extent to which existing models can support these abilities, and to what degree
+            these capabilities can be instilled through fine-tuning. The dataset is based on a
+            simple question-answering setup, where users ask questions that the system has to
+            answer, in real-time, based on the camera and audio input. We show that existing
+            models fall far behind human performance on this task, and we identify the main
+            sources for the performance gap. However, we also show that for many of the
+            required perceptual skills, fine-tuning on this form of data can significantly reduce
+            this gap.
+          </div>
+      </div>
+  </div>
+  <!--/ Abstract. -->
+</div>
+</div>
+</section>
+
+<!-- Stream-Qwen-Omni Model Section -->
+<section class="hero is-light is-small" style="margin-top: 2rem;">
+  <div class="hero-body has-text-centered" style="padding-bottom: 0.5rem;">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">Stream-Qwen-Omni Model</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem;">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+      <img src="./assets/img/qivd/stream-qwen.png" alt="Stream-Qwen-Omni Model" style="width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+      <div class="content has-text-justified">
+        We finetune the Qwen2.5-Omni 7B model to a streaming format by changing the way multi-modal data is provided to the model. We split the audio-visual data into 1-second chunks and feed the model one chunk at a time. The model is fine-tuned, where we train the vision adapter, audio adapter, and embedding layer jointly to generate a special token when it is listening and watching, and to produce an answer when it reaches the optimal time.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QIVD Benchmark Section -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1" id="QIVD">
+      <span style="vertical-align: middle"><span class="dnerf">QIVD</span> Benchmark</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section" style="padding-bottom: 1rem;">
+  <div class="container is-max-desktop">
+    <div class="content">
+<div class="qivd-page">
+  <!-- QIVD Benchmark. -->
+
+    <div id="qivd-results-carousel" class="carousel results-carousel">
           <div class="item">
             <video poster="" autoplay controls muted loop playsinline>
               <source src="./assets/img/qivd/videos/00000003.mp4" type="video/mp4">
@@ -547,70 +597,13 @@ body {
             <video poster="" autoplay controls muted loop playsinline>
               <source src="./assets/img/qivd/videos/00002464.mp4" type="video/mp4">
             </video>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <p class="has-text-centered is-italic" style="margin-top: 1rem; margin-bottom: 2rem; font-size: 0.95rem; color: #7a7a7a;">
+      Our benchmark contains diverse real-world videos with audio where users ask face-to-face questions about visual scenes, requiring models to understand spatial relationships, temporal dynamics, and fine-grained visual details.
+    </p>
 
-<!-- Abstract Section -->
-<section class="hero is-light is-small" style="margin-top: 2rem;">
-  <div class="hero-body has-text-centered">
-    <h1 class="title is-1">
-      <span style="vertical-align: middle">Abstract</span>
-    </h1>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="content">
-<div class="qivd-page">
-  <!-- Abstract. -->
-  <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-          <div class="content has-text-justified">
-            AI models have made significant strides in recent years in their ability to describe
-            and answer questions about real-world images. They have also made progress in
-            the ability to converse with users in real-time using audio input. This raises the
-            question: have we reached the point where AI models, connected to a camera and
-            microphone, can converse with users in real-time about scenes and events that are
-            unfolding live in front of the camera? This has been a long-standing goal in AI
-            and is a prerequisite for real-world AI assistants and humanoid robots to interact
-            with humans in everyday situations. In this work, we introduce a new dataset and
-            benchmark, the Interactive Video Dataset (QIVD), which allows us to assess the
-            extent to which existing models can support these abilities, and to what degree
-            these capabilities can be instilled through fine-tuning. The dataset is based on a
-            simple question-answering setup, where users ask questions that the system has to
-            answer, in real-time, based on the camera and audio input. We show that existing
-            models fall far behind human performance on this task, and we identify the main
-            sources for the performance gap. However, we also show that for many of the
-            required perceptual skills, fine-tuning on this form of data can significantly reduce
-            this gap.
-          </div>
-      </div>
-  </div>
-  <!--/ Abstract. -->
-</div>
-</div>
-</section>
-
-<!-- QIVD Benchmark Section -->
-<section class="hero is-light is-small">
-  <div class="hero-body has-text-centered">
-    <h1 class="title is-1" id="QIVD">
-      <span style="vertical-align: middle"><span class="dnerf">QIVD</span> Benchmark</span>
-    </h1>
-  </div>
-</section>
-
-<section class="section" style="padding-bottom: 1rem;">
-  <div class="container is-max-desktop">
-    <div class="content">
-<div class="qivd-page">
-  <!-- QIVD Benchmark. -->
-
-  <div class="content has-text-justified">
+    <div class="content has-text-justified">
   <span class="dnerf">QIVD</span> contains <strong>2,900 videos</strong> with crowdsourced face-to-face questions. Each video includes audio, transcribed question, ground-truth answer, and optimal answer timestamp. The benchmark features 13 semantic categories including action counting, object referencing, audio-visual integration, and more.<br><br>
 
   <video src="./assets/img/qivd/explain_liveqa.mp4" controls autoplay muted loop playsinline></video>
@@ -883,7 +876,7 @@ body {
   <!-- Experiment Results. -->
 
   <div class="content has-text-justified">
-  We introduce <strong>Stream-Qwen-Omni</strong>, our streaming model that processes audio-visual data in 1-second chunks, detecting when-to-answer with improved accuracy (52ms vs. 83ms for ASR-Streaming). During training, our model learns to:
+ During training, our model learns to:
   
   <ul style="margin-left: 2rem; margin-top: 1rem; margin-bottom: 1rem;">
     <li>Process streaming inputs in real-time</li>
@@ -892,7 +885,7 @@ body {
     <li>Generate accurate responses at the optimal moment</li>
   </ul>
     
-  We evaluate in two setups: <strong>(1) Streaming</strong>—models transcribe questions from audio and determine when to answer, and <strong>(2) Offline</strong>—ground-truth questions and timestamps provided. Additionally, we fine-tune VideoLLaMA2.1-7B-AV on QIVD using our Stream-Qwen-Omni approach, demonstrating significant improvements across categories.<br><br>
+  We evaluate in two setups: <strong>(1) Streaming</strong>: models transcribe questions from audio and determine when to answer, and <strong>(2) Offline</strong>: ground-truth questions and timestamps provided. Additionally, we fine-tune VideoLLaMA2.1-7B-AV on QIVD.<br><br>
 
   <h3 class="title is-5" style="margin-top: 2rem; margin-bottom: 1.5rem;">Performance Across Categories</h3>
   
@@ -928,14 +921,6 @@ body {
         Our Stream-Qwen-Omni: Accurate when-to-answer timing substantially improves performance
       </p>
     </div>
-  </div>
-
-  <p style="margin-top: 2rem;"><strong>Key Findings:</strong></p>
-  <ul style="margin-left: 2rem; margin-top: 1rem;">
-    <li>Our Stream-Qwen-Omni approach with fine-tuning produces largest gains in action counting (+16.96%), action understanding (+10.00%), and audio-visual tasks (+17.39%)</li>
-    <li>End-to-end multimodal training with our approach enables emergent capabilities beyond simple feature concatenation</li>
-    <li>Our Stream-Qwen-Omni's accurate when-to-answer detection is critical—models answering prematurely perform poorly</li>
-  </ul>
   </div>
 </div>
 </div>
@@ -1554,9 +1539,9 @@ body {
                     BibTeX
                   </a>
                   
-                  <a href="#" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
+                  <a href="#" style="color: #7a7a7a; text-decoration: none; display: flex; align-items: center; pointer-events: none;">
                     <i class="fab fa-github" style="margin-right: 0.5rem;"></i>
-                    Code (coming soon)
+                    Code
                   </a>
                   
                   <a href="https://www.qualcomm.com/developer/software/qualcomm-interactive-video-dataset-qivd" target="_blank" style="color: #3273dc; text-decoration: none; display: flex; align-items: center;">
@@ -1607,55 +1592,12 @@ body {
   </div>
 </section>
 
-<!-- Easter Egg -->
-<section class="section" style="padding-top: 0.25rem; padding-bottom: 2rem;">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column has-text-centered">
-        <div id="easter-egg" class="easter-egg" onclick="toggleEasterEgg()">Easter Egg</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <script>
   function copyCitation() {
     var citationCode = document.getElementById("citationCode").innerText;
     navigator.clipboard.writeText(citationCode);
-  }
-  
-  var eggRevealed = false;
-  var typing = false;
-  var message = "this project was released on march 26, 2025 when the internet was taken over with ghibli style images and thus this ghibli-style page.";
-  
-  function toggleEasterEgg() {
-    var easterEggElement = document.getElementById("easter-egg");
-    
-    if (eggRevealed) {
-      easterEggElement.classList.remove("typing-effect");
-      easterEggElement.classList.add("easter-egg");
-      easterEggElement.innerHTML = "Easter Egg";
-      eggRevealed = false;
-    } else {
-      easterEggElement.classList.remove("easter-egg");
-      easterEggElement.classList.add("typing-effect");
-      easterEggElement.innerHTML = "";
-      
-      var i = 0;
-      var speed = 25;
-      typing = true;
-      
-      function typeWriter() {
-        if (i < message.length) {
-          easterEggElement.innerHTML += message.charAt(i);
-          i++;
-          setTimeout(typeWriter, speed);
-        } else {
-          typing = false;
-          eggRevealed = true;
-        }
-      }
-      
+  }      
       typeWriter();
     }
   }
@@ -1666,7 +1608,7 @@ body {
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
-        <a class="icon-link" href="./paper.pdf">
+        <a class="icon-link" href="https://arxiv.org/abs/2503.19356">
           <i class="fas fa-file-pdf"></i>
         </a>
         <a class="icon-link" href="https://github.com/Rishit-dagli" class="external-link">
